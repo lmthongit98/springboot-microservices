@@ -1,13 +1,13 @@
-package net.javaguieds.departmentservice;
+package net.javaguides.employeeservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DepartmentServiceApplication {
+public class EmployeeServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DepartmentServiceApplication.class, args);
+		SpringApplication.run(EmployeeServiceApplication.class, args);
 	}
 
 }
