@@ -1,5 +1,6 @@
 package net.javaguides.employeeservice;
 
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -23,6 +24,12 @@ public class EmployeeServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EmployeeServiceApplication.class, args);
+	}
+
+	@Bean
+	NewTopic notification() {
+		// topic name, partition numbers, replication number
+		return new NewTopic("employeeTopic", 1, (short) 1);
 	}
 
 }

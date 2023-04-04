@@ -13,7 +13,9 @@ import net.javaguides.employeeservice.service.APIClient;
 import net.javaguides.employeeservice.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -32,6 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private APIClient apiClient;
 
+    @Autowired
+    KafkaTemplate<String, Object> kafkaTemplate;
+
 
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
@@ -39,6 +44,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
 
         Employee saveDEmployee = employeeRepository.save(employee);
+
+        kafkaTemplate.send("employeeTopic", "Created employee!");
 
         return EmployeeMapper.mapToEmployeeDto(saveDEmployee);
     }
